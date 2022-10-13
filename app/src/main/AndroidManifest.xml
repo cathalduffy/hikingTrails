@@ -14,7 +14,7 @@
         android:theme="@style/Theme.HikingTrails"
         tools:targetApi="31">
         <activity
-            android:name=".HikeActivity"
+            android:name=".activities.HikeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
