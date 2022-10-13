@@ -2,4 +2,6 @@
     <string name="app_name">HikingTrails</string>
     <string name="button_addHike">Add Hike</string>
     <string name="hint_hikeName">Hike Name</string>
+    <string name="hint_hikeDescription">Description </string>
+    <string name="menu_addHike">Add</string>
 </resources>
