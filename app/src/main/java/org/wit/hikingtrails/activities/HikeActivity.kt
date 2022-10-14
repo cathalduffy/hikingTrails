@@ -2,7 +2,10 @@ package org.wit.hikingtrails.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import com.google.android.material.snackbar.Snackbar
+import org.wit.hikingtrails.R
 import org.wit.hikingtrails.databinding.ActivityHikeBinding
 import org.wit.hikingtrails.main.MainApp
 import org.wit.hikingtrails.models.HikeModel
@@ -18,17 +21,21 @@ class HikeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHikeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        binding.toolbarAdd.title = title
+        setSupportActionBar(binding.toolbarAdd)
         app = application as MainApp
-        i("Hike Activity started...")
+
+        if (intent.hasExtra("hike_edit")) {
+            hike = intent.extras?.getParcelable("placemark_edit")!!
+            binding.hikeName.setText(hike.name)
+            binding.description.setText(hike.description)
+        }
+
         binding.btnAdd.setOnClickListener() {
             hike.name = binding.hikeName.text.toString()
             hike.description = binding.description.text.toString()
             if (hike.name.isNotEmpty()) {
-                app.hikes.add(hike.copy())
-                i("add Button Pressed: ${hike}")
-                for (i in app.hikes.indices)
-                { i("Hike[$i]:${this.app.hikes[i]}") }
+                app.hikes.create(hike.copy())
                 setResult(RESULT_OK)
                 finish()
             }
@@ -37,5 +44,17 @@ class HikeActivity : AppCompatActivity() {
                     .show()
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_hike, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.item_cancel -> { finish() }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
