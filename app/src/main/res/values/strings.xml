@@ -9,4 +9,6 @@
     <string name="save_hike"> Save Hike </string>
     <string name="button_addImage"> Add Image </string>
     <string name="select_hike_image">Select hike image</string>
+    <string name="button_location">Set Location</string>
+    <string name="title_activity_map">MapActivity</string>
 </resources>

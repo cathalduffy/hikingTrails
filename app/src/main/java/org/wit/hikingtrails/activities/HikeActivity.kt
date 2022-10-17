@@ -14,6 +14,7 @@ import org.wit.hikingtrails.databinding.ActivityHikeBinding
 import org.wit.hikingtrails.helpers.showImagePicker
 import org.wit.hikingtrails.main.MainApp
 import org.wit.hikingtrails.models.HikeModel
+import org.wit.hikingtrails.models.Location
 import timber.log.Timber
 import timber.log.Timber.i
 
@@ -22,6 +23,7 @@ class HikeActivity : AppCompatActivity() {
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
     var hike = HikeModel()
     lateinit var app: MainApp
+    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,11 +67,18 @@ class HikeActivity : AppCompatActivity() {
             setResult(RESULT_OK)
             finish()
         }
-
         binding.chooseImage.setOnClickListener {
             showImagePicker(imageIntentLauncher)
         }
+        binding.hikeLocation.setOnClickListener {
+            i ("Set Location Pressed")
+            val location = Location(52.2847986, -7.5147149, 15f)
+            val launcherIntent = Intent(this, MapActivity::class.java)
+                .putExtra("location", location)
+            mapIntentLauncher.launch(launcherIntent)
+        }
         registerImagePickerCallback()
+        registerMapCallback()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -103,5 +112,10 @@ class HikeActivity : AppCompatActivity() {
                     RESULT_CANCELED -> { } else -> { }
                 }
             }
+    }
+    private fun registerMapCallback() {
+        mapIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { i("Map Loaded") }
     }
 }
