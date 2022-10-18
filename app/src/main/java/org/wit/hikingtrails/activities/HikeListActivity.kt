@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.wit.hikingtrails.R
@@ -16,6 +18,8 @@ import org.wit.hikingtrails.models.HikeModel
 class HikeListActivity : AppCompatActivity(), HikeListener {
     lateinit var app: MainApp
     private lateinit var binding: ActivityHikeListBinding
+    private lateinit var refreshIntentLauncher : ActivityResultLauncher<Intent>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,11 +27,14 @@ class HikeListActivity : AppCompatActivity(), HikeListener {
         setContentView(binding.root)
         binding.toolbar.title = title
         setSupportActionBar(binding.toolbar)
+
         app = application as MainApp
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = HikeAdapter(app.hikes.findAll(),this)
+        loadHikes()
+
+        registerRefreshCallback()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -54,5 +61,20 @@ class HikeListActivity : AppCompatActivity(), HikeListener {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         binding.recyclerView.adapter?.notifyDataSetChanged()
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun registerRefreshCallback() {
+        refreshIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { loadHikes() }
+    }
+
+    private fun loadHikes() {
+        showHikes(app.hikes.findAll())
+    }
+
+    fun showHikes (hikes: List<HikeModel>) {
+        binding.recyclerView.adapter = HikeAdapter(hikes, this)
+        binding.recyclerView.adapter?.notifyDataSetChanged()
     }
 }
