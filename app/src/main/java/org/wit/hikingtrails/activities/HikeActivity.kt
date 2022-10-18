@@ -24,7 +24,6 @@ class HikeActivity : AppCompatActivity() {
     var hike = HikeModel()
     lateinit var app: MainApp
     private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
-    var location = Location(52.2847986, -7.5147149, 13f)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,7 +71,12 @@ class HikeActivity : AppCompatActivity() {
             showImagePicker(imageIntentLauncher)
         }
         binding.hikeLocation.setOnClickListener {
-            i ("Set Location Pressed")
+            val location = Location(52.2847986, -7.5147149, 13f)
+            if (hike.zoom != 0f) {
+                location.lat =  hike.lat
+                location.lng = hike.lng
+                location.zoom = hike.zoom
+            }
             val launcherIntent = Intent(this, MapActivity::class.java)
                 .putExtra("location", location)
             mapIntentLauncher.launch(launcherIntent)
@@ -121,12 +125,14 @@ class HikeActivity : AppCompatActivity() {
                     RESULT_OK -> {
                         if (result.data != null) {
                             i("Got Location ${result.data.toString()}")
-                            location = result.data!!.extras?.getParcelable("location")!!
+                            val location = result.data!!.extras?.getParcelable<Location>("location")!!
                             i("Location == $location")
+                            hike.lat = location.lat
+                            hike.lng = location.lng
+                            hike.zoom = location.zoom
                         } // end of if
                     }
-                    RESULT_CANCELED -> {}
-                    else -> {}
+                    RESULT_CANCELED -> { } else -> { }
                 }
             }
     }

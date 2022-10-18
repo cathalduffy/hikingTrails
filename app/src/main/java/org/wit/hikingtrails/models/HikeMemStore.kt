@@ -23,10 +23,14 @@ class HikeMemStore : HikeStore {
     }
 
     override fun update(hike: HikeModel) {
-        var foundHike: HikeModel? = hikes.find { p -> p.id == hike.id }
+        val foundHike: HikeModel? = hikes.find { p -> p.id == hike.id }
         if (foundHike != null) {
             foundHike.name = hike.name
             foundHike.description = hike.description
+            foundHike.image = hike.image
+            foundHike.lat = hike.lat
+            foundHike.lng = hike.lng
+            foundHike.zoom = hike.zoom
             logAll()
         }
     }
