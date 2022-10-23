@@ -4,11 +4,13 @@
     <string name="hint_hikeName">Hike Name</string>
     <string name="hint_hikeDescription">Description </string>
     <string name="menu_addHike">Add</string>
+    <string name="menu_logout">Log out</string>
     <string name="menu_cancelHike">Cancel</string>
     <string name="enter_hike_name"> Please enter a Hike Name </string>
     <string name="save_hike"> Save Hike </string>
     <string name="button_addImage"> Add Image </string>
     <string name="select_hike_image">Select hike image</string>
+    <string name="change_hike_image">Change hike image</string>
     <string name="button_location">Set Location</string>
     <string name="title_activity_map">MapActivity</string>
 </resources>

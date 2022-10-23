@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "560587518848",
+    "project_id": "kotlinapp-b6e31",
+    "storage_bucket": "kotlinapp-b6e31.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:560587518848:android:30d236f423f50f12f8c765",
+        "android_client_info": {
+          "package_name": "org.wit.hikingtrails"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "560587518848-dfja0m8vkbid28r54a7pomuehn3fl9qg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5IqWY3JodXTA_HYgseHYnm2g01K_1jQc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "560587518848-dfja0m8vkbid28r54a7pomuehn3fl9qg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

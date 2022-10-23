@@ -1,6 +1,7 @@
 package org.wit.hikingtrails.activities
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -19,10 +20,11 @@ import timber.log.Timber
 import timber.log.Timber.i
 
 class HikeActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityHikeBinding
-    private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
     var hike = HikeModel()
     lateinit var app: MainApp
+    private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
     private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +50,9 @@ class HikeActivity : AppCompatActivity() {
             Picasso.get()
                 .load(hike.image)
                 .into(binding.hikeImage)
+            if (hike.image != Uri.EMPTY) {
+                binding.chooseImage.setText(R.string.change_hike_image)
+            }
         }
 
         binding.btnAdd.setOnClickListener() {
@@ -67,11 +72,13 @@ class HikeActivity : AppCompatActivity() {
             setResult(RESULT_OK)
             finish()
         }
+
         binding.chooseImage.setOnClickListener {
             showImagePicker(imageIntentLauncher)
         }
+
         binding.hikeLocation.setOnClickListener {
-            val location = Location(52.2847986, -7.5147149, 13f)
+            val location = Location(52.245696, -7.139102, 15f)
             if (hike.zoom != 0f) {
                 location.lat =  hike.lat
                 location.lng = hike.lng
@@ -81,6 +88,7 @@ class HikeActivity : AppCompatActivity() {
                 .putExtra("location", location)
             mapIntentLauncher.launch(launcherIntent)
         }
+
         registerImagePickerCallback()
         registerMapCallback()
     }
@@ -111,12 +119,14 @@ class HikeActivity : AppCompatActivity() {
                             Picasso.get()
                                 .load(hike.image)
                                 .into(binding.hikeImage)
+                            binding.chooseImage.setText(R.string.change_hike_image)
                         } // end of if
                     }
                     RESULT_CANCELED -> { } else -> { }
                 }
             }
     }
+
     private fun registerMapCallback() {
         mapIntentLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult())
