@@ -37,15 +37,24 @@ class HikeActivity : AppCompatActivity() {
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)
 
+        binding.progressBar.max = 1000
+        binding.amountPicker.minValue = 1
+        binding.amountPicker.maxValue = 1000
+
+
         app = application as MainApp
 
         i("Hike Activity started...")
 
         if (intent.hasExtra("hike_edit")) {
+            val distance = hike.distance
+
             edit = true
             hike = intent.extras?.getParcelable("hike_edit")!!
             binding.hikeName.setText(hike.name)
             binding.description.setText(hike.description)
+            binding.distance.setText("Distance - "+hike.distance+"km")
+            binding.difficulty.setText("Difficulty Level - "+hike.difficultyLevel)
             binding.btnAdd.setText(R.string.save_hike)
             Picasso.get()
                 .load(hike.image)
@@ -56,8 +65,13 @@ class HikeActivity : AppCompatActivity() {
         }
 
         binding.btnAdd.setOnClickListener() {
+
             hike.name = binding.hikeName.text.toString()
             hike.description = binding.description.text.toString()
+            hike.difficultyLevel = if(binding.difficultyLevel.checkedRadioButtonId == R.id.Intermediate)
+                "Intermediate" else "Hard"
+            hike.distance = binding.amountPicker.value
+
             if (hike.name.isEmpty()) {
                 Snackbar.make(it,R.string.enter_hike_name, Snackbar.LENGTH_LONG)
                     .show()

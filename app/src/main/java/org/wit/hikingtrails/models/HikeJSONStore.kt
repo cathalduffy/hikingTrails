@@ -40,9 +40,23 @@ class HikeJSONStore(private val context: Context) : HikeStore {
         serialize()
     }
 
+    override fun findById(id: Long): HikeModel? {
+        TODO("Not yet implemented")
+    }
 
     override fun update(hike: HikeModel) {
-        // todo
+        val foundHike: HikeModel? = hikes.find { p -> p.id == hike.id }
+        if (foundHike != null) {
+            foundHike.name = hike.name
+            foundHike.description = hike.description
+            foundHike.image = hike.image
+            foundHike.lat = hike.lat
+            foundHike.lng = hike.lng
+            foundHike.zoom = hike.zoom
+            foundHike.distance = hike.distance
+            foundHike.difficultyLevel = hike.difficultyLevel
+            serialize()
+        }
     }
 
     private fun serialize() {

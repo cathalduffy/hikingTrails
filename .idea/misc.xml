@@ -5,7 +5,8 @@
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.1203125" />
         <entry key="app/src/main/res/layout/activity_create_account.xml" value="0.225" />
-        <entry key="app/src/main/res/layout/activity_hike.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_donate.xml" value="0.42441507975260423" />
+        <entry key="app/src/main/res/layout/activity_hike.xml" value="0.24953460693359378" />
         <entry key="app/src/main/res/layout/activity_hike_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
