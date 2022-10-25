@@ -47,6 +47,7 @@ class HikeJSONStore(private val context: Context) : HikeStore {
     override fun remove(hike: HikeModel) {
         val foundHike: HikeModel? = hikes.find { p -> p.id == hike.id }
         hikes.remove(foundHike)
+        serialize()
     }
 
     override fun update(hike: HikeModel) {
