@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">HikingTrails</string>
     <string name="button_addHike">Add Hike</string>
+    <string name="button_deleteHike">Delete</string>
     <string name="hint_hikeName">Hike Name</string>
     <string name="hint_hikeDescription">Description </string>
     <string name="menu_addHike">Add</string>
@@ -13,4 +14,17 @@
     <string name="change_hike_image">Change hike image</string>
     <string name="button_location">Set Location</string>
     <string name="title_activity_map">MapActivity</string>
+
+    <string name="hikeSubtitle">Please set hike difficulty</string>
+    <string name="hard">Hard</string>
+    <string name="intermediate">Intermediate</string>
+    <string name="distance">Distance</string>
+    <string name="difficulty">Difficulty</string>
+    <string name="total">Total so Far</string>
+    <string name="defaultAmount">00</string>
+    <string name="defaultMethod">N/A</string>
+    <string name="enter_amount">Enter Amount</string>
+
+
+
 </resources>

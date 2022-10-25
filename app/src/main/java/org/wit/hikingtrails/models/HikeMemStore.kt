@@ -16,6 +16,11 @@ class HikeMemStore : HikeStore {
         return hikes
     }
 
+    override fun findById(id:Long) : HikeModel? {
+        val foundHike: HikeModel? = hikes.find { it.id == id }
+        return foundHike
+    }
+
     override fun create(hike: HikeModel) {
         hike.id = getId()
         hikes.add(hike)
@@ -33,6 +38,11 @@ class HikeMemStore : HikeStore {
             foundHike.zoom = hike.zoom
             logAll()
         }
+    }
+
+    override fun remove(hike: HikeModel) {
+        val foundHike: HikeModel? = hikes.find { p -> p.id == hike.id }
+        hikes.remove(foundHike)
     }
 
     private fun logAll() {
