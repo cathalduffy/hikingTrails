@@ -47,8 +47,6 @@ class HikeActivity : AppCompatActivity() {
         i("Hike Activity started...")
 
         if (intent.hasExtra("hike_edit")) {
-            val distance = hike.distance
-
             edit = true
             hike = intent.extras?.getParcelable("hike_edit")!!
             binding.hikeName.setText(hike.name)
@@ -86,6 +84,14 @@ class HikeActivity : AppCompatActivity() {
             setResult(RESULT_OK)
             finish()
         }
+
+        //
+        binding.btnDelete.setOnClickListener() {
+            app.hikes.remove(hike)
+            setResult(RESULT_OK)
+            finish()
+        }
+
 
         binding.chooseImage.setOnClickListener {
             showImagePicker(imageIntentLauncher)

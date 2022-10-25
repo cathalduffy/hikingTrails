@@ -44,6 +44,11 @@ class HikeJSONStore(private val context: Context) : HikeStore {
         TODO("Not yet implemented")
     }
 
+    override fun remove(hike: HikeModel) {
+        val foundHike: HikeModel? = hikes.find { p -> p.id == hike.id }
+        hikes.remove(foundHike)
+    }
+
     override fun update(hike: HikeModel) {
         val foundHike: HikeModel? = hikes.find { p -> p.id == hike.id }
         if (foundHike != null) {

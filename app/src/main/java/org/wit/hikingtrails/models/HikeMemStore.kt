@@ -40,6 +40,11 @@ class HikeMemStore : HikeStore {
         }
     }
 
+    override fun remove(hike: HikeModel) {
+        val foundHike: HikeModel? = hikes.find { p -> p.id == hike.id }
+        hikes.remove(foundHike)
+    }
+
     private fun logAll() {
         hikes.forEach { i("$it") }
     }
