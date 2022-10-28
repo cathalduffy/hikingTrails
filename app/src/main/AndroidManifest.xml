@@ -21,7 +21,7 @@
             android:exported="false"
             android:label="@string/title_activity_map" />
         <activity
-            android:name=".activities.SignUpActivity"
+            android:name=".activities.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,9 +29,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.HikeActivity"></activity>
-        <activity android:name=".activities.SignInActivity"></activity>
-        <activity android:name=".activities.HikeListActivity"></activity>
+        <activity android:name=".activities.HikeActivity" />
+        <activity android:name=".activities.SignInActivity" />
+        <activity android:name=".activities.HikeListActivity" />
+        <activity android:name=".activities.SignUpActivity" />
+
     </application>
 
 </manifest>

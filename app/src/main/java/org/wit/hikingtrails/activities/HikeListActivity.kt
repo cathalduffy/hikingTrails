@@ -50,6 +50,10 @@ class HikeListActivity : AppCompatActivity(), HikeListener/*, MultiplePermission
                 val launcherIntent = Intent(this, HikeActivity::class.java)
                 refreshIntentLauncher.launch(launcherIntent)
             }
+            R.id.item_add -> {
+                val launcherIntent = Intent(this, HikeActivity::class.java)
+                refreshIntentLauncher.launch(launcherIntent)
+            }
             R.id.logout -> {
                 FirebaseAuth.getInstance().signOut()
                 val launcherIntent = Intent(this, SignInActivity::class.java)
