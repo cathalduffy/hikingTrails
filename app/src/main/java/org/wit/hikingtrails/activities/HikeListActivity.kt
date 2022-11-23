@@ -22,6 +22,7 @@ class HikeListActivity : AppCompatActivity(), HikeListener/*, MultiplePermission
     lateinit var app: MainApp
     private lateinit var binding: ActivityHikeListBinding
     private lateinit var refreshIntentLauncher : ActivityResultLauncher<Intent>
+    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +38,7 @@ class HikeListActivity : AppCompatActivity(), HikeListener/*, MultiplePermission
 
         loadHikes()
         registerRefreshCallback()
+        registerMapCallback()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -46,9 +48,9 @@ class HikeListActivity : AppCompatActivity(), HikeListener/*, MultiplePermission
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.item_add -> {
-                val launcherIntent = Intent(this, HikeActivity::class.java)
-                refreshIntentLauncher.launch(launcherIntent)
+            R.id.item_map -> {
+                val launcherIntent = Intent(this, HikeMapsActivity::class.java)
+                mapIntentLauncher.launch(launcherIntent)
             }
             R.id.item_add -> {
                 val launcherIntent = Intent(this, HikeActivity::class.java)
@@ -66,11 +68,16 @@ class HikeListActivity : AppCompatActivity(), HikeListener/*, MultiplePermission
     override fun onHikeClick(hike: HikeModel) {
         val launcherIntent = Intent(this, HikeActivity::class.java)
         launcherIntent.putExtra("hike_edit", hike)
-        refreshIntentLauncher.launch(launcherIntent)
+        mapIntentLauncher.launch(launcherIntent)
     }
 
     private fun registerRefreshCallback() {
         refreshIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { loadHikes() }
+    }
+    private fun registerMapCallback() {
+        mapIntentLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult())
             { loadHikes() }
     }
