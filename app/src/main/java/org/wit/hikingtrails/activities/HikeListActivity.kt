@@ -53,7 +53,7 @@ class HikeListActivity : AppCompatActivity(), HikeListener/*, MultiplePermission
                 mapIntentLauncher.launch(launcherIntent)
             }
             R.id.item_add -> {
-                val launcherIntent = Intent(this, HikeActivity::class.java)
+                val launcherIntent = Intent(this, HikeView::class.java)
                 refreshIntentLauncher.launch(launcherIntent)
             }
             R.id.logout -> {
@@ -66,7 +66,7 @@ class HikeListActivity : AppCompatActivity(), HikeListener/*, MultiplePermission
     }
 
     override fun onHikeClick(hike: HikeModel) {
-        val launcherIntent = Intent(this, HikeActivity::class.java)
+        val launcherIntent = Intent(this, HikeView::class.java)
         launcherIntent.putExtra("hike_edit", hike)
         mapIntentLauncher.launch(launcherIntent)
     }
