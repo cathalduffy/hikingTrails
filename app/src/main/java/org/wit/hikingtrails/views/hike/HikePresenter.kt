@@ -1,7 +1,6 @@
-package org.wit.hikingtrails.activities
+package org.wit.hikingtrails.views.hike
 
 import android.content.Intent
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.NetworkPolicy
@@ -15,8 +14,8 @@ import org.wit.hikingtrails.helpers.showImagePicker
 import org.wit.hikingtrails.main.MainApp
 import org.wit.hikingtrails.models.HikeModel
 import org.wit.hikingtrails.models.Location
+import org.wit.hikingtrails.views.location.EditLocationView
 import timber.log.Timber
-import timber.log.Timber.i
 
 class HikePresenter(private val view: HikeView) {
 
@@ -72,7 +71,7 @@ class HikePresenter(private val view: HikeView) {
             location.lng = hike.lng
             location.zoom = hike.zoom
         }
-        val launcherIntent = Intent(view, MapActivity::class.java)
+        val launcherIntent = Intent(view, EditLocationView::class.java)
             .putExtra("location", location)
         mapIntentLauncher.launch(launcherIntent)
     }

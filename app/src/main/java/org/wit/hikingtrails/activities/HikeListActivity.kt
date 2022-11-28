@@ -2,7 +2,6 @@ package org.wit.hikingtrails.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.ActivityResultLauncher
@@ -16,6 +15,7 @@ import org.wit.hikingtrails.adapters.HikeListener
 import org.wit.hikingtrails.databinding.ActivityHikeListBinding
 import org.wit.hikingtrails.main.MainApp
 import org.wit.hikingtrails.models.HikeModel
+import org.wit.hikingtrails.views.hike.HikeView
 
 class HikeListActivity : AppCompatActivity(), HikeListener/*, MultiplePermissionsListener*/ {
 

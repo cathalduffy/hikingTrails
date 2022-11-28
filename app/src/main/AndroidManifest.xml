@@ -21,7 +21,7 @@
             android:value="${MAPS_API_KEY}" />
 
         <activity
-            android:name=".activities.MapActivity"
+            android:name=".views.location.EditLocationView"
             android:exported="false"
             android:label="@string/title_activity_map" />
         <activity
@@ -33,9 +33,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.HikeView" />
+        <activity android:name=".views.hike.HikeView" />
         <activity android:name=".activities.SignInActivity" />
-        <activity android:name=".activities.HikeListActivity" />
+        <activity android:name=".views.hikeList.HikeListView" />
         <activity android:name=".activities.SignUpActivity" />
     </application>
 

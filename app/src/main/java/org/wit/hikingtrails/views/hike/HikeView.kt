@@ -1,4 +1,4 @@
-package org.wit.hikingtrails.activities
+package org.wit.hikingtrails.views.hike
 
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
