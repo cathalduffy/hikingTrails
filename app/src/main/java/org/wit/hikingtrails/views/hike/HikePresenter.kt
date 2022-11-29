@@ -1,41 +1,23 @@
 package org.wit.hikingtrails.views.hike
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import com.squareup.picasso.MemoryPolicy
-import com.squareup.picasso.NetworkPolicy
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.result.ActivityResultLauncher
-import com.squareup.picasso.Picasso
-import org.wit.hikingtrails.R
-import org.wit.hikingtrails.activities.MapActivity
-import org.wit.hikingtrails.databinding.ActivityHikeBinding
-import org.wit.hikingtrails.helpers.showImagePicker
-import org.wit.hikingtrails.main.MainApp
 import org.wit.hikingtrails.models.HikeModel
 import org.wit.hikingtrails.models.Location
-import org.wit.hikingtrails.views.location.EditLocationView
-import timber.log.Timber
+import org.wit.hikingtrails.views.*
+import showImagePicker
 
-class HikePresenter(private val view: HikeView) {
+class HikePresenter(view: BaseView) : BasePresenter(view) {
 
     var hike = HikeModel()
-    lateinit var app: MainApp
-    lateinit var binding: ActivityHikeBinding
-    private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
-    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
+    var defaultLocation = Location(52.245696, -7.139102, 15f)
     var edit = false;
 
     init {
-        binding = ActivityHikeBinding.inflate(view.layoutInflater)
-        app = view.application as MainApp
         if (view.intent.hasExtra("hike_edit")) {
             edit = true
-            hike = view.intent.extras?.getParcelable("hike_edit")!!
+            hike = view.intent.extras?.getParcelable<HikeModel>("hike_edit")!!
             view.showHike(hike)
         }
-        registerImagePickerCallback()
-        registerMapCallback()
     }
 
     fun doAddOrSave(name: String, description: String, difficulty: String, distance: Int) {
@@ -48,74 +30,44 @@ class HikePresenter(private val view: HikeView) {
         } else {
             app.hikes.create(hike)
         }
-        view.finish()
+        view?.finish()
     }
 
     fun doCancel() {
-        view.finish()
+        view?.finish()
     }
 
-//    fun doDelete() {
-//        app.hikes.remove(hike)
-//        view.finish()
-//    }
+    fun doDelete() {
+        app.hikes.remove(hike)
+        view?.finish()
+    }
 
     fun doSelectImage() {
-        showImagePicker(imageIntentLauncher)
+        view?.let{
+            showImagePicker(view!!, IMAGE_REQUEST)
+        }
     }
 
     fun doSetLocation() {
-        val location = Location(52.245696, -7.139102, 15f)
-        if (hike.zoom != 0f) {
-            location.lat =  hike.lat
-            location.lng = hike.lng
-            location.zoom = hike.zoom
+        if (edit == false) {
+            view?.navigateTo(VIEW.LOCATION, LOCATION_REQUEST, "location", defaultLocation)
+        } else {
+            view?.navigateTo(VIEW.LOCATION, LOCATION_REQUEST, "location", Location(hike.lat, hike.lng, hike.zoom))
         }
-        val launcherIntent = Intent(view, EditLocationView::class.java)
-            .putExtra("location", location)
-        mapIntentLauncher.launch(launcherIntent)
     }
 
-    private fun registerImagePickerCallback() {
-
-        imageIntentLauncher =
-            view.registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-            { result ->
-                when(result.resultCode){
-                    AppCompatActivity.RESULT_OK -> {
-                        if (result.data != null) {
-                            Timber.i("Got Result ${result.data!!.data}")
-                            hike.image = result.data!!.data!!
-                            Picasso.get()
-                                .load(hike.image)
-                                .networkPolicy(NetworkPolicy.NO_CACHE)
-                                .memoryPolicy(MemoryPolicy.NO_CACHE)
-                                .into(binding.hikeImage)
-                            binding.chooseImage.setText(R.string.change_hike_image)
-                        }
-                    }
-                    AppCompatActivity.RESULT_CANCELED -> { } else -> { }
-                }
+    override fun doActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+        when (requestCode) {
+            IMAGE_REQUEST -> {
+                hike.image = data!!.data!!
+                view?.showHike(hike)
             }
-    }
-
-    private fun registerMapCallback() {
-        mapIntentLauncher =
-            view.registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-            { result ->
-                when (result.resultCode) {
-                    AppCompatActivity.RESULT_OK -> {
-                        if (result.data != null) {
-                            Timber.i("Got Location ${result.data.toString()}")
-                            val location = result.data!!.extras?.getParcelable<Location>("location")!!
-                            Timber.i("Location == $location")
-                            hike.lat = location.lat
-                            hike.lng = location.lng
-                            hike.zoom = location.zoom
-                        } // end of if
-                    }
-                    AppCompatActivity.RESULT_CANCELED -> { } else -> { }
-                }
+            LOCATION_REQUEST -> {
+                val location = data.extras?.getParcelable<Location>("location")
+                hike.lat = location!!.lat
+                hike.lng = location.lng
+                hike.zoom = location.zoom
             }
+        }
     }
 }

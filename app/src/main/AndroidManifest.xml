@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HikingTrails">
         <activity
-            android:name=".activities.HikeMapsActivity"
+            android:name=".views.map.HikeMapView"
             android:label="@string/title_activity_hike_maps"
             android:theme="@style/Theme.HikingTrails.NoActionBar" />
 

@@ -1,63 +1,68 @@
 package org.wit.hikingtrails.views.hike
 
-import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import com.google.android.material.snackbar.Snackbar
-import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_hike.*
+import kotlinx.android.synthetic.main.activity_hike.view.*
+//import org.jetbrains.anko.AnkoLogger
+//import org.jetbrains.anko.toast
 import org.wit.hikingtrails.R
-import org.wit.hikingtrails.databinding.ActivityHikeBinding
 import org.wit.hikingtrails.models.HikeModel
+import org.wit.hikingtrails.models.Location
+import org.wit.hikingtrails.views.BaseView
+import readImageFromPath
 import timber.log.Timber.i
 
-class HikeView : AppCompatActivity() {
+class HikeView : BaseView() //AnkoLogger
+{
 
-    private lateinit var binding: ActivityHikeBinding
     lateinit var presenter: HikePresenter
     var hike = HikeModel()
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_hike)
 
-        binding = ActivityHikeBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        binding.toolbarAdd.title = title
-        setSupportActionBar(binding.toolbarAdd)
+        progressBar.max = 1000
+        amountPicker.minValue = 1
+        amountPicker.maxValue = 1000
 
-        binding.progressBar.max = 1000
-        binding.amountPicker.minValue = 1
-        binding.amountPicker.maxValue = 1000
+        init(toolbarAdd)
 
-        presenter = HikePresenter(this)
+        presenter = initPresenter (HikePresenter(this)) as HikePresenter
 
-        binding.btnAdd.setOnClickListener() {
-            hike.name = binding.hikeName.text.toString()
-            hike.description = binding.description.text.toString()
-            hike.difficultyLevel = if(binding.difficultyLevel.checkedRadioButtonId == R.id.Intermediate)
-                "Intermediate" else "Hard"
-            hike.distance = binding.amountPicker.value
-            if (hike.name.isEmpty()) {
-                Snackbar.make(it,R.string.enter_hike_name, Snackbar.LENGTH_LONG)
-                    .show()
-            } else {
-                presenter.doAddOrSave(hike.name, hike.description, hike.difficultyLevel, hike.distance)
+        btnAdd.setOnClickListener{
+            presenter.doAddOrSave(
+                hikeName.text.toString(),
+                description.text.toString(),
+                if(difficultyLevel.checkedRadioButtonId == R.id.Intermediate)
+            "Intermediate" else "Hard",
+                distance.text.length) }
+        //distance.amountPicker.value
 
-            }
-            i("add Button Pressed: $hike")
-            setResult(RESULT_OK)
-            finish()
+        btnDelete.setOnClickListener { presenter.doAddOrSave(hikeName.text.toString(), description.text.toString(), difficulty.text.toString(), distance.text.length) }
+
+        chooseImage.setOnClickListener { presenter.doSelectImage() }
+
+        hikeLocation.setOnClickListener { presenter.doSetLocation() }
+
+        btnDelete.setOnClickListener { presenter.doDelete() }
+    }
+
+    override fun showHike(hike: HikeModel) {
+        hikeName.setText(hike.name)
+        description.setText(hike.description)
+        distance.setText("Distance - "+hike.distance+"km")
+        difficulty.setText("Difficulty Level - "+hike.difficultyLevel)
+        hikeImage.setImageBitmap(readImageFromPath(this, hike.image.toString()))
+        if (hike.image != null) {
+            chooseImage.setText(R.string.change_hike_image)
         }
-
-        binding.chooseImage.setOnClickListener {
-            presenter.doSelectImage()
-        }
-
-        binding.hikeLocation.setOnClickListener {
-            presenter.doSetLocation()
-        }
-
+        btnAdd.setText(R.string.save_hike)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -66,27 +71,32 @@ class HikeView : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+        when (item?.itemId) {
+//            R.id.item_delete -> {
+//                presenter.doDelete()
+//            }
+//            R.id.item_save -> {
+//                if (hikeName.text.toString().isEmpty()) {
+//                    i("Empty")
+//                } else {
+//                    presenter.doAddOrSave(hikeName.text.toString(), description.text.toString(), difficulty.text.toString(), distance.text.length)
+//                }
+//            }
             R.id.item_cancel -> {
                 presenter.doCancel()
             }
-
         }
         return super.onOptionsItemSelected(item)
     }
-    fun showHike(hike: HikeModel) {
-        binding.hikeName.setText(hike.name)
-        binding.description.setText(hike.description)
-        binding.distance.setText("Distance - "+hike.distance+"km")
-        binding.difficulty.setText("Difficulty Level - "+hike.difficultyLevel)
-        binding.btnAdd.setText(R.string.save_hike)
-        Picasso.get()
-            .load(hike.image)
-            .into(binding.hikeImage)
-        if (hike.image != Uri.EMPTY) {
-            binding.chooseImage.setText(R.string.change_hike_image)
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (data != null) {
+            presenter.doActivityResult(requestCode, resultCode, data)
         }
-        binding.btnAdd.setText(R.string.save_hike)
     }
 
+    override fun onBackPressed() {
+        presenter.doCancel()
+    }
 }
