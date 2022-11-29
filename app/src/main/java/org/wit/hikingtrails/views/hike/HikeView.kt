@@ -6,21 +6,16 @@ import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_hike.*
 import kotlinx.android.synthetic.main.activity_hike.view.*
-//import org.jetbrains.anko.AnkoLogger
-//import org.jetbrains.anko.toast
 import org.wit.hikingtrails.R
 import org.wit.hikingtrails.models.HikeModel
-import org.wit.hikingtrails.models.Location
 import org.wit.hikingtrails.views.BaseView
 import readImageFromPath
-import timber.log.Timber.i
 
-class HikeView : BaseView() //AnkoLogger
+class HikeView : BaseView()
 {
 
     lateinit var presenter: HikePresenter
     var hike = HikeModel()
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +36,9 @@ class HikeView : BaseView() //AnkoLogger
                 description.text.toString(),
                 if(difficultyLevel.checkedRadioButtonId == R.id.Intermediate)
             "Intermediate" else "Hard",
-                distance.text.length) }
+                amountPicker.value
+//                distance.text.length
+            ) }
         //distance.amountPicker.value
 
         btnDelete.setOnClickListener { presenter.doAddOrSave(hikeName.text.toString(), description.text.toString(), difficulty.text.toString(), distance.text.length) }
