@@ -56,6 +56,13 @@ class HikePresenter(view: BaseView) : BasePresenter(view) {
         }
     }
 
+    fun cacheHike (name: String, description: String, difficulty: String, distance: Int) {
+        hike.name = name
+        hike.description = description
+        hike.difficultyLevel = difficulty
+        hike.distance = distance
+    }
+
     override fun doActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         when (requestCode) {
             IMAGE_REQUEST -> {

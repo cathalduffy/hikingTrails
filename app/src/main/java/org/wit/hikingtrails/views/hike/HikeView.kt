@@ -37,15 +37,19 @@ class HikeView : BaseView()
                 if(difficultyLevel.checkedRadioButtonId == R.id.Intermediate)
             "Intermediate" else "Hard",
                 amountPicker.value
-//                distance.text.length
             ) }
-        //distance.amountPicker.value
 
         btnDelete.setOnClickListener { presenter.doAddOrSave(hikeName.text.toString(), description.text.toString(), difficulty.text.toString(), distance.text.length) }
 
-        chooseImage.setOnClickListener { presenter.doSelectImage() }
+        chooseImage.setOnClickListener {
+            presenter.cacheHike(hikeName.text.toString(), description.text.toString(), difficulty.text.toString(), distance.text.length)
+            presenter.doSelectImage()
+        }
 
-        hikeLocation.setOnClickListener { presenter.doSetLocation() }
+        hikeLocation.setOnClickListener {
+            presenter.cacheHike(hikeName.text.toString(), description.text.toString(), difficulty.text.toString(), distance.text.length)
+            presenter.doSetLocation()
+        }
 
         btnDelete.setOnClickListener { presenter.doDelete() }
     }
