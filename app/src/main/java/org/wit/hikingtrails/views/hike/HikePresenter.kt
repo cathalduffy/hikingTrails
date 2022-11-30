@@ -20,7 +20,7 @@ class HikePresenter(view: BaseView) : BasePresenter(view) {
         }
     }
 
-    fun doAddOrSave(name: String, description: String, difficulty: String, distance: Int) {
+    suspend fun doAddOrSave(name: String, description: String, difficulty: String, distance: Int) {
         hike.name = name
         hike.description = description
         hike.difficultyLevel = difficulty
@@ -37,7 +37,7 @@ class HikePresenter(view: BaseView) : BasePresenter(view) {
         view?.finish()
     }
 
-    fun doDelete() {
+    suspend fun doDelete() {
         app.hikes.remove(hike)
         view?.finish()
     }

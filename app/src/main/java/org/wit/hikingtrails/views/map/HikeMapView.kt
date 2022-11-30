@@ -7,6 +7,9 @@ import com.google.android.gms.maps.model.Marker
 import org.wit.hikingtrails.R
 import kotlinx.android.synthetic.main.activity_hike_maps.*
 import kotlinx.android.synthetic.main.content_hike_maps.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 //import org.wit.hikingtrails.helpers.readImageFromPath
 import org.wit.hikingtrails.models.HikeModel
 import readImageFromPath
@@ -23,7 +26,9 @@ class HikeMapView : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
 
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync {
-            presenter.doPopulateMap(it)
+            GlobalScope.launch(Dispatchers.Main) {
+                presenter.doPopulateMap(it)
+            }
         }
     }
 
@@ -34,7 +39,9 @@ class HikeMapView : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {
-        presenter.doMarkerSelected(marker)
+        GlobalScope.launch(Dispatchers.Main) {
+            presenter.doMarkerSelected(marker)
+        }
         return true
     }
 

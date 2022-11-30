@@ -6,6 +6,13 @@ package org.wit.hikingtrails.views.hikeList
 //import org.wit.hikingtrails.activities.HikeMapsActivity
 //import org.wit.hikingtrails.views.hike.HikeView
 //import org.wit.hikingtrails.main.MainApp
+import android.content.Intent
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import org.wit.hikingtrails.main.MainApp
 import org.wit.hikingtrails.models.HikeModel
 
 import org.wit.hikingtrails.views.BasePresenter
@@ -13,6 +20,9 @@ import org.wit.hikingtrails.views.BaseView
 import org.wit.hikingtrails.views.VIEW
 
 class HikeListPresenter(view: BaseView) : BasePresenter(view) {
+
+    suspend fun getHikes() = app.hikes.findAll()
+
 
     fun doAddHike() {
         view?.navigateTo(VIEW.HIKE)
@@ -26,7 +36,7 @@ class HikeListPresenter(view: BaseView) : BasePresenter(view) {
         view?.navigateTo(VIEW.MAPS)
     }
 
-    fun loadHikes() {
-        view?.showHikes(app.hikes.findAll())
-    }
+//    suspend fun loadHikes() {
+//        view?.showHikes(app.hikes.findAll())
+//    }
 }

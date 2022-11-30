@@ -8,14 +8,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import org.wit.hikingtrails.R
 import org.wit.hikingtrails.adapters.HikeAdapter
 import org.wit.hikingtrails.adapters.HikeListener
-import org.wit.hikingtrails.databinding.ActivityHikeListBinding
+//import org.wit.hikingtrails.databinding.ActivityHikeListBinding
 import org.wit.hikingtrails.main.MainApp
 import org.wit.hikingtrails.models.HikeModel
 
 import android.content.Intent
 import android.view.*
 import kotlinx.android.synthetic.main.activity_hike_list.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.wit.hikingtrails.views.BaseView
+import timber.log.Timber
 
 class HikeListView :  BaseView(), HikeListener {
 
@@ -30,7 +34,7 @@ class HikeListView :  BaseView(), HikeListener {
 
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
-        presenter.loadHikes()
+        updateRecyclerView()
     }
 
     override fun showHikes(hikes: List<HikeModel>) {
@@ -41,6 +45,16 @@ class HikeListView :  BaseView(), HikeListener {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onResume() {
+
+        //update the view
+        super.onResume()
+//        updateRecyclerView()
+        recyclerView.adapter?.notifyDataSetChanged()
+        Timber.i("recyclerView onResume")
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -55,8 +69,10 @@ class HikeListView :  BaseView(), HikeListener {
         presenter.doEditHike(hike)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        presenter.loadHikes()
-        super.onActivityResult(requestCode, resultCode, data)
+    private fun updateRecyclerView(){
+        GlobalScope.launch(Dispatchers.Main){
+            recyclerView.adapter =
+                HikeAdapter(presenter.getHikes(), this@HikeListView)
+        }
     }
 }

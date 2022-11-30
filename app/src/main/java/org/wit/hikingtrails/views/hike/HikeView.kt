@@ -6,6 +6,9 @@ import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_hike.*
 import kotlinx.android.synthetic.main.activity_hike.view.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.wit.hikingtrails.R
 import org.wit.hikingtrails.models.HikeModel
 import org.wit.hikingtrails.views.BaseView
@@ -31,15 +34,18 @@ class HikeView : BaseView()
         presenter = initPresenter (HikePresenter(this)) as HikePresenter
 
         btnAdd.setOnClickListener{
+            GlobalScope.launch(Dispatchers.IO) {
             presenter.doAddOrSave(
                 hikeName.text.toString(),
                 description.text.toString(),
                 if(difficultyLevel.checkedRadioButtonId == R.id.Intermediate)
             "Intermediate" else "Hard",
                 amountPicker.value
-            ) }
+            )} }
 
-        btnDelete.setOnClickListener { presenter.doAddOrSave(hikeName.text.toString(), description.text.toString(), difficulty.text.toString(), distance.text.length) }
+        btnDelete.setOnClickListener {
+            GlobalScope.launch(Dispatchers.IO) {
+            presenter.doAddOrSave(hikeName.text.toString(), description.text.toString(), difficulty.text.toString(), distance.text.length)} }
 
         chooseImage.setOnClickListener {
             presenter.cacheHike(hikeName.text.toString(), description.text.toString(), difficulty.text.toString(), distance.text.length)
@@ -51,7 +57,11 @@ class HikeView : BaseView()
             presenter.doSetLocation()
         }
 
-        btnDelete.setOnClickListener { presenter.doDelete() }
+        btnDelete.setOnClickListener {
+            GlobalScope.launch(Dispatchers.IO) {
+                presenter.doDelete()
+            }
+        }
     }
 
     override fun showHike(hike: HikeModel) {
