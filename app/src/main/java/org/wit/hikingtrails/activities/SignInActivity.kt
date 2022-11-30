@@ -4,9 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import org.wit.hikingtrails.R
 import org.wit.hikingtrails.databinding.ActivitySignInBinding
 import com.google.firebase.auth.FirebaseAuth
+import org.wit.hikingtrails.views.hikeList.HikeListView
 
 class SignInActivity : AppCompatActivity() {
 
@@ -33,7 +33,7 @@ class SignInActivity : AppCompatActivity() {
 
                 firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
                     if (it.isSuccessful) {
-                        val intent = Intent(this, HikeListActivity::class.java)
+                        val intent = Intent(this, HikeListView::class.java)
                         startActivity(intent)
                     } else {
                         Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
@@ -51,7 +51,7 @@ class SignInActivity : AppCompatActivity() {
         super.onStart()
 
         if(firebaseAuth.currentUser != null){
-            val intent = Intent(this, HikeListActivity::class.java)
+            val intent = Intent(this, HikeListView::class.java)
             startActivity(intent)
         }
     }

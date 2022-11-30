@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.wit.hikingtrails.activities.HikeActivity">
+    tools:context="org.wit.hikingtrails.views.hike.HikeView">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -187,7 +187,7 @@
 
                 <Button
                     android:id="@+id/btnAdd"
-                    android:layout_width="match_parent"
+                    android:layout_width="375dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:background="@color/colorAccent"

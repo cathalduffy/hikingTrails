@@ -5,6 +5,7 @@
     <string name="hint_hikeName">Hike Name</string>
     <string name="hint_hikeDescription">Description </string>
     <string name="menu_addHike">Add</string>
+    <string name="menu_mapMode">Map Mode</string>
     <string name="menu_logout">Log out</string>
     <string name="menu_cancelHike">Cancel</string>
     <string name="enter_hike_name"> Please enter a Hike Name </string>
@@ -26,6 +27,15 @@
     <string name="enter_amount">Enter Amount</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_hike_maps">Map of all Hikes</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
 
 </resources>
