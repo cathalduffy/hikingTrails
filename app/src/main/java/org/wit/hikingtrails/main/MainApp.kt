@@ -13,7 +13,6 @@ class MainApp : Application() {
 
     lateinit var hikes: HikeStore
 
-
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())

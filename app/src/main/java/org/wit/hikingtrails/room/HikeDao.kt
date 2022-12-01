@@ -7,17 +7,17 @@ import org.wit.hikingtrails.models.HikeModel
 interface HikeDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun create(hike: HikeModel)
+    suspend fun create(hike: HikeModel)
 
     @Query("SELECT * FROM HikeModel")
-    fun findAll(): List<HikeModel>
+    suspend fun findAll(): List<HikeModel>
 
     @Query("select * from HikeModel where id = :id")
-    fun findById(id: Long): HikeModel
+    suspend fun findById(id: Long): HikeModel
 
     @Update
-    fun update(hike: HikeModel)
+    suspend fun update(hike: HikeModel)
 
     @Delete
-    fun deleteHike(hike: HikeModel)
+    suspend fun deleteHike(hike: HikeModel)
 }

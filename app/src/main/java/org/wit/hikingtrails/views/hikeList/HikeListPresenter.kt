@@ -18,23 +18,55 @@ import org.wit.hikingtrails.models.HikeModel
 import org.wit.hikingtrails.views.BasePresenter
 import org.wit.hikingtrails.views.BaseView
 import org.wit.hikingtrails.views.VIEW
+import org.wit.hikingtrails.views.hike.HikeView
+import org.wit.hikingtrails.views.map.HikeMapView
 
 class HikeListPresenter(view: BaseView) : BasePresenter(view) {
 
+//    var app: MainApp = view.application as MainApp
+    private lateinit var refreshIntentLauncher : ActivityResultLauncher<Intent>
+    private lateinit var editIntentLauncher : ActivityResultLauncher<Intent>
+
+    init {
+        registerEditCallback()
+        registerRefreshCallback()
+    }
+
     suspend fun getHikes() = app.hikes.findAll()
 
-
     fun doAddHike() {
-        view?.navigateTo(VIEW.HIKE)
+        val launcherIntent = Intent(view, HikeView::class.java)
+        editIntentLauncher.launch(launcherIntent)
     }
 
     fun doEditHike(hike: HikeModel) {
-        view?.navigateTo(VIEW.HIKE, 0, "hike_edit", hike)
+        val launcherIntent = Intent(view, HikeView::class.java)
+        launcherIntent.putExtra("hike_edit", hike)
+        editIntentLauncher.launch(launcherIntent)
     }
 
     fun doShowHikesMap() {
-        view?.navigateTo(VIEW.MAPS)
+        val launcherIntent = Intent(view, HikeMapView::class.java)
+        editIntentLauncher.launch(launcherIntent)
     }
+
+    private fun registerRefreshCallback() {
+        refreshIntentLauncher =
+            view!!.registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            {
+                GlobalScope.launch(Dispatchers.Main){
+                    getHikes()
+                }
+            }
+    }
+    private fun registerEditCallback() {
+        editIntentLauncher =
+            view!!.registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            {  }
+
+    }
+
+
 
 //    suspend fun loadHikes() {
 //        view?.showHikes(app.hikes.findAll())

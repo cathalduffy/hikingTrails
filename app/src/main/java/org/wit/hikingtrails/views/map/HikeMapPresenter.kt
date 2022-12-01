@@ -9,11 +9,7 @@ import org.wit.hikingtrails.main.MainApp
 
 class HikeMapPresenter(val view: HikeMapView) {
 
-    var app: MainApp
-
-    init {
-        app = view.application as MainApp
-    }
+    var app: MainApp = view.application as MainApp
 
     suspend fun doPopulateMap(map: GoogleMap) {
         map.uiSettings.setZoomControlsEnabled(true)
@@ -21,7 +17,7 @@ class HikeMapPresenter(val view: HikeMapView) {
         app.hikes.findAll().forEach {
             val loc = LatLng(it.lat, it.lng)
             val options = MarkerOptions().title(it.name).position(loc)
-            map.addMarker(options).tag = it.id
+            map.addMarker(options)!!.tag = it.id
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, it.zoom))
         }
     }
