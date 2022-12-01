@@ -5,16 +5,17 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.provider.MediaStore
+import androidx.activity.result.ActivityResultLauncher
 import org.wit.hikingtrails.R
 import java.io.IOException
 
-fun showImagePicker(parent: Activity, id: Int) {
-    val intent = Intent()
-    intent.type = "image/*"
-    intent.action = Intent.ACTION_OPEN_DOCUMENT
-    intent.addCategory(Intent.CATEGORY_OPENABLE)
-    val chooser = Intent.createChooser(intent, R.string.select_hike_image.toString())
-    parent.startActivityForResult(chooser, id)
+fun showImagePicker(intentLauncher : ActivityResultLauncher<Intent>) {
+
+    var chooseFile = Intent(Intent.ACTION_OPEN_DOCUMENT)
+    chooseFile.type = "image/*"
+    chooseFile = Intent.createChooser(chooseFile, R.string.select_hike_image.toString())
+    //chooseFile.flags = (Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
+    intentLauncher.launch(chooseFile)
 }
 
 fun readImage(activity: Activity, resultCode: Int, data: Intent?): Bitmap? {

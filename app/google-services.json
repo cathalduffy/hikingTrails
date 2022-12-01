@@ -20,7 +20,7 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB5IqWY3JodXTA_HYgseHYnm2g01K_1jQc"
+          "current_key": "{MAPS_API_KEY}"
         }
       ],
       "services": {

@@ -1,9 +1,9 @@
 package org.wit.hikingtrails.models
 
 interface HikeStore {
-    fun findAll(): List<HikeModel>
-    fun create(hike: HikeModel)
-    fun findById(id: Long) : HikeModel?
-    fun update(hike: HikeModel)
-    fun remove(hike: HikeModel)
+    suspend fun findAll(): List<HikeModel>
+    suspend fun create(hike: HikeModel)
+    suspend fun findById(id: Long) : HikeModel?
+    suspend fun update(hike: HikeModel)
+    suspend fun remove(hike: HikeModel)
 }

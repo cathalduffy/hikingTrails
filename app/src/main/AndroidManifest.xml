@@ -18,7 +18,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="${MAPS_API_KEY}" />
+            android:value="AIzaSyAoHkRdGbuPy8cDT_RA2pitUYjDm69TSL0" />
 
         <activity
             android:name=".views.location.EditLocationView"

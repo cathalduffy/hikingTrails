@@ -29,28 +29,28 @@ class HikeJSONStore(private val context: Context) : HikeStore {
         }
     }
 
-    override fun findAll(): MutableList<HikeModel> {
+    override suspend fun findAll(): MutableList<HikeModel> {
         logAll()
         return hikes
     }
 
-    override fun create(hike: HikeModel) {
+    override suspend fun create(hike: HikeModel) {
         hike.id = generateRandomId()
         hikes.add(hike)
         serialize()
     }
 
-    override fun findById(id: Long): HikeModel? {
+    override suspend fun findById(id: Long): HikeModel? {
         TODO("Not yet implemented")
     }
 
-    override fun remove(hike: HikeModel) {
+    override suspend fun remove(hike: HikeModel) {
         val foundHike: HikeModel? = hikes.find { p -> p.id == hike.id }
         hikes.remove(foundHike)
         serialize()
     }
 
-    override fun update(hike: HikeModel) {
+    override suspend fun update(hike: HikeModel) {
         val foundHike: HikeModel? = hikes.find { p -> p.id == hike.id }
         if (foundHike != null) {
             foundHike.name = hike.name

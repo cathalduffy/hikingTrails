@@ -12,22 +12,22 @@ class HikeMemStore : HikeStore {
 
     val hikes = ArrayList<HikeModel>()
 
-    override fun findAll(): List<HikeModel> {
+    override suspend fun findAll(): List<HikeModel> {
         return hikes
     }
 
-    override fun findById(id:Long) : HikeModel? {
+    override suspend fun findById(id:Long) : HikeModel? {
         val foundHike: HikeModel? = hikes.find { it.id == id }
         return foundHike
     }
 
-    override fun create(hike: HikeModel) {
+    override suspend fun create(hike: HikeModel) {
         hike.id = getId()
         hikes.add(hike)
         logAll()
     }
 
-    override fun update(hike: HikeModel) {
+    override suspend fun update(hike: HikeModel) {
         val foundHike: HikeModel? = hikes.find { p -> p.id == hike.id }
         if (foundHike != null) {
             foundHike.name = hike.name
@@ -40,7 +40,7 @@ class HikeMemStore : HikeStore {
         }
     }
 
-    override fun remove(hike: HikeModel) {
+    override suspend fun remove(hike: HikeModel) {
         val foundHike: HikeModel? = hikes.find { p -> p.id == hike.id }
         hikes.remove(foundHike)
     }
