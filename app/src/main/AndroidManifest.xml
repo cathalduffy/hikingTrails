@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".views.hike.HikeView" />
-        <activity android:name=".activities.SignInActivity" />
+        <activity android:name=".views.signIn.SignInView" />
         <activity android:name=".views.hikeList.HikeListView" />
         <activity android:name=".activities.SignUpActivity" />
     </application>

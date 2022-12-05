@@ -9,6 +9,7 @@ package org.wit.hikingtrails.views.hikeList
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -20,6 +21,7 @@ import org.wit.hikingtrails.views.BaseView
 import org.wit.hikingtrails.views.VIEW
 import org.wit.hikingtrails.views.hike.HikeView
 import org.wit.hikingtrails.views.map.HikeMapView
+import org.wit.hikingtrails.views.signIn.SignInView
 
 class HikeListPresenter(view: BaseView) : BasePresenter(view) {
 
@@ -49,6 +51,13 @@ class HikeListPresenter(view: BaseView) : BasePresenter(view) {
         val launcherIntent = Intent(view, HikeMapView::class.java)
         editIntentLauncher.launch(launcherIntent)
     }
+
+    fun doLogout() {
+        FirebaseAuth.getInstance().signOut()
+        val launcherIntent = Intent(view, SignInView::class.java)
+        editIntentLauncher.launch(launcherIntent)
+    }
+
 
     private fun registerRefreshCallback() {
         refreshIntentLauncher =
