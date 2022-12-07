@@ -64,6 +64,7 @@ class HikeListView :  BaseView(), HikeListener {
         when (item?.itemId) {
             R.id.item_add -> presenter.doAddHike()
             R.id.item_map -> presenter.doShowHikesMap()
+            R.id.logout -> presenter.doLogout()
         }
         return super.onOptionsItemSelected(item)
     }

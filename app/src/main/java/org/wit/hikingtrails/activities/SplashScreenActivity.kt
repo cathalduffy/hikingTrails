@@ -7,6 +7,8 @@ import android.os.Handler
 import android.os.Looper
 import org.wit.hikingtrails.R
 import android.view.WindowManager
+//import org.wit.hikingtrails.views.login.LoginView
+import org.wit.hikingtrails.views.signIn.SignInView
 
 
 class SplashScreenActivity : AppCompatActivity() {
@@ -27,7 +29,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         // Handler().postDelayed({
         Handler(Looper.getMainLooper()).postDelayed({
-            val intent = Intent(this, SignInActivity::class.java)
+            val intent = Intent(this, SignInView::class.java)
             startActivity(intent)
             finish()
         }, 2000) // 3000 is the delayed time in milliseconds.

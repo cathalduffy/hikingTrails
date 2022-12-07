@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#91B247"
-    tools:context="org.wit.hikingtrails.activities.HikeActivity"
+    tools:context="org.wit.hikingtrails.views.signIn.SignInView"
     tools:ignore="MissingDefaultResource">
 
 
