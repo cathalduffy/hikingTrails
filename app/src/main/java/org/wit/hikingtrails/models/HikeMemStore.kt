@@ -45,6 +45,10 @@ class HikeMemStore : HikeStore {
         hikes.remove(foundHike)
     }
 
+    override suspend fun clear(){
+        hikes.clear()
+    }
+
     private fun logAll() {
         hikes.forEach { i("$it") }
     }

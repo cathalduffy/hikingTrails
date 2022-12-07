@@ -15,6 +15,7 @@ import org.wit.hikingtrails.R
 import org.wit.hikingtrails.databinding.ActivityHikeBinding
 import org.wit.hikingtrails.models.HikeModel
 import timber.log.Timber
+import timber.log.Timber.i
 
 class HikeView : AppCompatActivity() {
 
@@ -100,7 +101,11 @@ class HikeView : AppCompatActivity() {
             .load(hike.image)
             .into(binding.hikeImage)
 
-        if (hike.image != Uri.EMPTY) {
+        if (hike.image != "") {
+            Picasso.get()
+                .load(hike.image)
+                .into(binding.hikeImage)
+
             binding.chooseImage.setText(R.string.change_hike_image)
         }
         binding.btnAdd.setText(R.string.save_hike)
@@ -110,8 +115,8 @@ class HikeView : AppCompatActivity() {
 
     }
 
-    fun updateImage(image: Uri){
-        Timber.i("Image updated")
+    fun updateImage(image: String){
+        i("Image updated")
         Picasso.get()
             .load(image)
             .into(binding.hikeImage)

@@ -9,9 +9,10 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @Entity
 data class HikeModel(@PrimaryKey(autoGenerate = true) var id: Long = 0,
+                     var fbId: String = "",
                      var name: String = "",
                      var description: String = "",
-                     var image: Uri = Uri.EMPTY,
+                     var image: String = "",
                      var lat : Double = 0.0,
                      var lng: Double = 0.0,
                      var zoom: Float = 0f,

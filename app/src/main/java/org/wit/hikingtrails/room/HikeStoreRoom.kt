@@ -33,11 +33,10 @@ class HikeStoreRoom(val context: Context) : HikeStore {
         dao.update(hike)
     }
 
-//    override suspend fun delete(hike: HikeModel) {
-//        dao.deleteHike(hike)
-//    }
-
     override suspend fun remove(hike: HikeModel) {
         dao.deleteHike(hike)
+    }
+
+    override suspend fun clear(){
     }
 }
