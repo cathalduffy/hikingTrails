@@ -7,7 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import org.wit.hikingtrails.R
 import android.view.WindowManager
-import org.wit.hikingtrails.views.login.LoginView
+//import org.wit.hikingtrails.views.login.LoginView
 import org.wit.hikingtrails.views.signIn.SignInView
 
 

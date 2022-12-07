@@ -8,6 +8,7 @@ import org.wit.hikingtrails.databinding.ActivitySignInBinding
 import com.google.firebase.auth.FirebaseAuth
 import org.wit.hikingtrails.activities.SignUpActivity
 import org.wit.hikingtrails.views.hikeList.HikeListView
+import org.wit.hikingtrails.views.signUp.SignUpView
 
 class SignInView : AppCompatActivity() {
 
@@ -24,7 +25,7 @@ class SignInView : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
         binding.textView.setOnClickListener {
-            val intent = Intent(this, SignUpActivity::class.java)
+            val intent = Intent(this, SignUpView::class.java)
             startActivity(intent)
         }
 

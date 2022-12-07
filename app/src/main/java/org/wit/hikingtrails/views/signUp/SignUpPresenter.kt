@@ -1,44 +1,39 @@
-package org.wit.hikingtrails.views.signIn
+package org.wit.hikingtrails.views.signUp
 
-import android.content.ContentValues.TAG
 import android.content.Intent
-import android.util.Log
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.firebase.auth.FirebaseAuth
+import org.wit.hikingtrails.activities.SignInActivity
 import org.wit.hikingtrails.views.hikeList.HikeListView
-import timber.log.Timber
 import timber.log.Timber.i
 
-class SignInPresenter (val view: SignInView)  {
+class SignUpPresenter(val view: SignUpView)  {
     private lateinit var loginIntentLauncher : ActivityResultLauncher<Intent>
 
     init{
-        registerLoginCallback()
+        registerSignUpCallback()
     }
+
     var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
-
-    fun doLogin(email: String, pass: String) {
+    fun doSignup(email: String, pass: String) {
 //        view.showProgress()
-        auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(view) { task ->
+        auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(view!!) { task ->
             if (task.isSuccessful) {
                 val launcherIntent = Intent(view, HikeListView::class.java)
                 loginIntentLauncher.launch(launcherIntent)
             } else {
-                Timber.i( "signInWithCredential:failure ${task.exception?.message}")
-                i("Login failed:")
-//                val launcherIntent = Intent(view, HikeListView::class.java)
-//                loginIntentLauncher.launch(launcherIntent)
+
             }
 //            view.hideProgress()
         }
     }
 
-    private fun registerLoginCallback(){
+    private fun registerSignUpCallback(){
         loginIntentLauncher =
             view.registerForActivityResult(ActivityResultContracts.StartActivityForResult())
             {  }
     }
-
 }

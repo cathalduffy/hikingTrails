@@ -10,7 +10,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.HikingTrails">
+        android:theme="@style/Theme.HikingTrails"
+        android:usesCleartextTraffic="true"
+        >
         <activity
             android:name=".views.map.HikeMapView"
             android:label="@string/title_activity_hike_maps"
@@ -36,7 +38,7 @@
         <activity android:name=".views.hike.HikeView" />
         <activity android:name=".views.signIn.SignInView" />
         <activity android:name=".views.hikeList.HikeListView" />
-        <activity android:name=".activities.SignUpActivity" />
+        <activity android:name=".views.signUp.SignUpView" />
     </application>
 
 </manifest>
