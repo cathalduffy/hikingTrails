@@ -50,6 +50,10 @@ class HikeJSONStore(private val context: Context) : HikeStore {
         serialize()
     }
 
+    override suspend fun clear(){
+        hikes.clear()
+    }
+
     override suspend fun update(hike: HikeModel) {
         val foundHike: HikeModel? = hikes.find { p -> p.id == hike.id }
         if (foundHike != null) {

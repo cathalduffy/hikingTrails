@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "560587518848",
+    "firebase_url": "https://kotlinapp-b6e31-default-rtdb.firebaseio.com",
     "project_id": "kotlinapp-b6e31",
     "storage_bucket": "kotlinapp-b6e31.appspot.com"
   },
@@ -14,13 +15,21 @@
       },
       "oauth_client": [
         {
+          "client_id": "560587518848-uq2tv68mt7ne8m6v3kmn4ht8s06j4khk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.wit.hikingtrails",
+            "certificate_hash": "c75ecbc1c7c20205c0e33e63f62343135b648289"
+          }
+        },
+        {
           "client_id": "560587518848-dfja0m8vkbid28r54a7pomuehn3fl9qg.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCwKgZIWhVQ-EiRUHLeH42Pl9ntzhvbzRY"
+          "current_key": "AIzaSyB5IqWY3JodXTA_HYgseHYnm2g01K_1jQc"
         }
       ],
       "services": {

@@ -151,6 +151,7 @@ class HikePresenter(private val view: HikeView) {
     }
 
     private fun registerImagePickerCallback() {
+
         imageIntentLauncher =
             view.registerForActivityResult(ActivityResultContracts.StartActivityForResult())
             { result ->
@@ -158,7 +159,7 @@ class HikePresenter(private val view: HikeView) {
                     AppCompatActivity.RESULT_OK -> {
                         if (result.data != null) {
                             Timber.i("Got Result ${result.data!!.data}")
-                            hike.image = result.data!!.data!!
+                            hike.image = result.data!!.data!!.toString()
                             view.updateImage(hike.image)
                         }
                     }

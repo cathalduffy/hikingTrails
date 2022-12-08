@@ -34,7 +34,12 @@ class HikeAdapter constructor(private var hikes: List<HikeModel>,
         fun bind(hike: HikeModel, listener: HikeListener) {
             binding.hikeName.text = hike.name
             binding.description.text = hike.description
-            Picasso.get().load(hike.image).resize(200,200).into(binding.imageIcon)
+            if (hike.image != ""){
+                Picasso.get()
+                    .load(hike.image)
+                    .resize(200, 200)
+                    .into(binding.imageIcon)
+            }
             binding.root.setOnClickListener { listener.onHikeClick(hike) }
         }
     }
