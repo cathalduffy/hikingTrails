@@ -1,13 +1,20 @@
 package org.wit.hikingtrails.models
 
 import android.content.Context
+import android.graphics.Bitmap
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import readImageFromPath
+import java.io.ByteArrayOutputStream
+import java.io.File
 
 class HikeFireStore(val context: Context) : HikeStore {
     val hikes = ArrayList<HikeModel>()
     lateinit var userId: String
     lateinit var db: DatabaseReference
+    lateinit var st: StorageReference
 
     override suspend fun findAll(): List<HikeModel> {
         return hikes
@@ -72,5 +79,30 @@ class HikeFireStore(val context: Context) : HikeStore {
         hikes.clear()
         db.child("users").child(userId).child("hikes")
             .addListenerForSingleValueEvent(valueEventListener)
+    }
+
+    fun updateImage(hike: HikeModel) {
+        if (hike.image != "") {
+            val fileName = File(hike.image)
+            val imageName = fileName.getName()
+
+            var imageRef = st.child(userId + '/' + imageName)
+            val baos = ByteArrayOutputStream()
+            val bitmap = readImageFromPath(context, hike.image)
+
+            bitmap?.let {
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                val data = baos.toByteArray()
+                val uploadTask = imageRef.putBytes(data)
+                uploadTask.addOnFailureListener {
+//                    println(it.message)
+                }.addOnSuccessListener { taskSnapshot ->
+                    taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener {
+                        hike.image = it.toString()
+                        db.child("users").child(userId).child("hikes").child(hike.fbId).setValue(hike)
+                    }
+                }
+            }
+        }
     }
 }

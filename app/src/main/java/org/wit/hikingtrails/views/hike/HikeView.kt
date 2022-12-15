@@ -96,10 +96,11 @@ class HikeView : AppCompatActivity() {
         if (binding.hikeName.text.isEmpty()) binding.hikeName.setText(hike.name)
         if (binding.description.text.isEmpty())  binding.description.setText(hike.description)
         binding.distance.setText("Distance - "+hike.distance+"km")
+//        i("$hike.distance")
         binding.difficulty.setText("Difficulty Level - "+hike.difficultyLevel)
-        Picasso.get()
-            .load(hike.image)
-            .into(binding.hikeImage)
+//        Picasso.get()
+//            .load(hike.image)
+//            .into(binding.hikeImage)
 
         if (hike.image != "") {
             Picasso.get()
