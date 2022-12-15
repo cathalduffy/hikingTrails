@@ -11,10 +11,9 @@ import org.wit.hikingtrails.adapters.HikeListener
 //import org.wit.hikingtrails.databinding.ActivityHikeListBinding
 import org.wit.hikingtrails.main.MainApp
 import org.wit.hikingtrails.models.HikeModel
-
 import android.content.Intent
 import android.view.*
-//import kotlinx.android.synthetic.main.activity_hike_list.*
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -37,8 +36,16 @@ class HikeListView :  BaseView(), HikeListener {
         presenter = HikeListPresenter(this)
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
+
+
+
+
+
+
         updateRecyclerView()
     }
+
+
 
 //    override fun showHikes(hikes: List<HikeModel>) {
 //        recyclerView.adapter = HikeAdapter(hikes, this)
