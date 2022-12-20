@@ -1,11 +1,5 @@
 package org.wit.hikingtrails.views.hikeList
 
-//import android.content.Intent
-//import androidx.activity.result.ActivityResultLauncher
-//import androidx.activity.result.contract.ActivityResultContracts
-//import org.wit.hikingtrails.activities.HikeMapsActivity
-//import org.wit.hikingtrails.views.hike.HikeView
-//import org.wit.hikingtrails.main.MainApp
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -25,7 +19,8 @@ import org.wit.hikingtrails.views.signIn.SignInView
 
 class HikeListPresenter(view: BaseView) : BasePresenter(view) {
 
-//    var app: MainApp = view.application as MainApp
+
+    //    var app: MainApp = view.application as MainApp
     private lateinit var refreshIntentLauncher : ActivityResultLauncher<Intent>
     private lateinit var editIntentLauncher : ActivityResultLauncher<Intent>
 
@@ -58,6 +53,9 @@ class HikeListPresenter(view: BaseView) : BasePresenter(view) {
         editIntentLauncher.launch(launcherIntent)
     }
 
+    fun updateFavourite(favourite: Boolean) {
+
+    }
 
     private fun registerRefreshCallback() {
         refreshIntentLauncher =

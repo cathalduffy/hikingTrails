@@ -33,19 +33,13 @@ class HikeListView :  BaseView(), HikeListener {
         setContentView(binding.root)
         binding.toolbar.title = title
         setSupportActionBar(binding.toolbar)
+
         presenter = HikeListPresenter(this)
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
 
-
-
-
-
-
         updateRecyclerView()
     }
-
-
 
 //    override fun showHikes(hikes: List<HikeModel>) {
 //        recyclerView.adapter = HikeAdapter(hikes, this)
@@ -58,7 +52,6 @@ class HikeListView :  BaseView(), HikeListener {
     }
 
     override fun onResume() {
-
         //update the view
         super.onResume()
         updateRecyclerView()
