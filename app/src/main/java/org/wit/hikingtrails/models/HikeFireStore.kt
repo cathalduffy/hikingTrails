@@ -45,6 +45,7 @@ class HikeFireStore(val context: Context) : HikeStore {
             foundHike.zoom = hike.zoom
             foundHike.distance = hike.distance
             foundHike.difficultyLevel = hike.difficultyLevel
+            foundHike.favourite = hike.favourite
         }
 
         db.child("users").child(userId).child("hikes").child(hike.fbId).setValue(hike)

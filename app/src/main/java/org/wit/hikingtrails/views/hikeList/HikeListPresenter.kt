@@ -1,11 +1,5 @@
 package org.wit.hikingtrails.views.hikeList
 
-//import android.content.Intent
-//import androidx.activity.result.ActivityResultLauncher
-//import androidx.activity.result.contract.ActivityResultContracts
-//import org.wit.hikingtrails.activities.HikeMapsActivity
-//import org.wit.hikingtrails.views.hike.HikeView
-//import org.wit.hikingtrails.main.MainApp
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -25,7 +19,8 @@ import org.wit.hikingtrails.views.signIn.SignInView
 
 class HikeListPresenter(view: BaseView) : BasePresenter(view) {
 
-//    var app: MainApp = view.application as MainApp
+    var hike = HikeModel()
+
     private lateinit var refreshIntentLauncher : ActivityResultLauncher<Intent>
     private lateinit var editIntentLauncher : ActivityResultLauncher<Intent>
 
@@ -35,6 +30,9 @@ class HikeListPresenter(view: BaseView) : BasePresenter(view) {
     }
 
     suspend fun getHikes() = app.hikes.findAll()
+
+    suspend fun updateFav(hike: HikeModel) { app.hikes.update(hike)}
+
 
     fun doAddHike() {
         val launcherIntent = Intent(view, HikeView::class.java)
@@ -58,7 +56,6 @@ class HikeListPresenter(view: BaseView) : BasePresenter(view) {
         editIntentLauncher.launch(launcherIntent)
     }
 
-
     private fun registerRefreshCallback() {
         refreshIntentLauncher =
             view!!.registerForActivityResult(ActivityResultContracts.StartActivityForResult())
@@ -74,9 +71,7 @@ class HikeListPresenter(view: BaseView) : BasePresenter(view) {
             {  }
 
     }
-
-
-
+    
 //    suspend fun loadHikes() {
 //        view?.showHikes(app.hikes.findAll())
 //    }

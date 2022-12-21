@@ -151,7 +151,6 @@ class HikePresenter(private val view: HikeView) {
     }
 
     private fun registerImagePickerCallback() {
-
         imageIntentLauncher =
             view.registerForActivityResult(ActivityResultContracts.StartActivityForResult())
             { result ->

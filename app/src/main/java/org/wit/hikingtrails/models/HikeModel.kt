@@ -17,6 +17,7 @@ data class HikeModel(@PrimaryKey(autoGenerate = true) var id: Long = 0,
                      var lng: Double = 0.0,
                      var zoom: Float = 0f,
                      var difficultyLevel: String = "N/A",
+                     var favourite: Boolean = true,
                      var distance: Int = 0) : Parcelable
 
 
