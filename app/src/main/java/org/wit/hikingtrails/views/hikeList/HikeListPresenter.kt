@@ -19,8 +19,8 @@ import org.wit.hikingtrails.views.signIn.SignInView
 
 class HikeListPresenter(view: BaseView) : BasePresenter(view) {
 
+    var hike = HikeModel()
 
-    //    var app: MainApp = view.application as MainApp
     private lateinit var refreshIntentLauncher : ActivityResultLauncher<Intent>
     private lateinit var editIntentLauncher : ActivityResultLauncher<Intent>
 
@@ -30,6 +30,9 @@ class HikeListPresenter(view: BaseView) : BasePresenter(view) {
     }
 
     suspend fun getHikes() = app.hikes.findAll()
+
+    suspend fun updateFav(hike: HikeModel) { app.hikes.update(hike)}
+
 
     fun doAddHike() {
         val launcherIntent = Intent(view, HikeView::class.java)
@@ -53,10 +56,6 @@ class HikeListPresenter(view: BaseView) : BasePresenter(view) {
         editIntentLauncher.launch(launcherIntent)
     }
 
-    fun updateFavourite(favourite: Boolean) {
-
-    }
-
     private fun registerRefreshCallback() {
         refreshIntentLauncher =
             view!!.registerForActivityResult(ActivityResultContracts.StartActivityForResult())
@@ -72,9 +71,7 @@ class HikeListPresenter(view: BaseView) : BasePresenter(view) {
             {  }
 
     }
-
-
-
+    
 //    suspend fun loadHikes() {
 //        view?.showHikes(app.hikes.findAll())
 //    }

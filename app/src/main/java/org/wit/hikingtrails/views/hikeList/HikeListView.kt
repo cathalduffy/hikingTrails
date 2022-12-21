@@ -70,7 +70,15 @@ class HikeListView :  BaseView(), HikeListener {
     }
 
     override fun onHikeClick(hike: HikeModel) {
-        presenter.doEditHike(hike)
+        GlobalScope.launch(Dispatchers.Main) {
+            presenter.doEditHike(hike)
+//            presenter.updateHike(hike)
+        }
+    }
+
+    override fun onFavClick(hike: HikeModel) {
+        GlobalScope.launch(Dispatchers.Main) {
+            presenter.updateFav(hike)}
     }
 
     private fun updateRecyclerView(){

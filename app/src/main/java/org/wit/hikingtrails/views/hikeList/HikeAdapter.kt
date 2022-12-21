@@ -11,6 +11,7 @@ import timber.log.Timber.i
 
 interface HikeListener {
     fun onHikeClick(hike: HikeModel)
+    fun onFavClick(hike: HikeModel)
 }
 
 class HikeAdapter constructor(private var hikes: List<HikeModel>,
@@ -38,11 +39,10 @@ class HikeAdapter constructor(private var hikes: List<HikeModel>,
             binding.description.text = hike.description
 
             binding.favourite.isChecked = hike.favourite
-            binding.favourite.setOnClickListener {
-                hike.favourite = binding.favourite.isChecked
-                listener.onHikeClick(hike)
+            binding.favourite.setOnCheckedChangeListener { buttonView, isChecked ->
+                hike.favourite = isChecked
+                    listener.onFavClick(hike)
             }
-
 
 
             if (hike.image != ""){
