@@ -36,6 +36,7 @@ class HikeMemStore : HikeStore {
             foundHike.lat = hike.lat
             foundHike.lng = hike.lng
             foundHike.zoom = hike.zoom
+            foundHike.favourite = hike.favourite
             logAll()
         }
     }
